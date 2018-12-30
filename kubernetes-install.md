@@ -75,3 +75,9 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 ```sh
 kubeadm join --token 39c341.a3bc3c4dd49758d5 IP_OF_MASTER:6443 --discovery-token-ca-cert-hash sha256:37092 
 ```
+
+# Install Weave Scope
+```sh
+kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl get services -n weave
+```
