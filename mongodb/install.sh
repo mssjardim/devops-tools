@@ -18,7 +18,7 @@ curl -OL https://fastdl.mongodb.org/linux/$FILENAME
 echo "Extract $FILENAME to $DIRNAME"
 tar -zxvf $FILENAME
 
-echo "Copy mongodb to /opt/mongodb"
+echo "Copy mongodb to $MONGO_DIR/mongodb"
 mv $DIRNAME/bin $MONGO_DIR/mongodb
 
 echo "Copy binaries to /usr/local/bin"
@@ -36,7 +36,7 @@ echo "Create user mongodb"
 getent passwd mongodb || useradd mongodb
 
 echo "Start mongod as replicaSet called rs0"
-sudo -Hu mongodb /opt/mongodb/mongod --dbpath /data/db --replSet "rs0" &
+sudo -Hu mongodb $MONGO_DIR/mongodb/mongod --dbpath /data/db --replSet "rs0" &
 
 sleep 10
 echo "Initialize replicaSet"
@@ -55,7 +55,7 @@ db.createUser({
 EOF
 
 echo "Shutdown Mongodb"
-/opt/mongodb/mongod --shutdown
+$MONGO_DIR/mongodb/mongod --shutdown
 
 sleep 5
 echo "Create mongod as a service"
