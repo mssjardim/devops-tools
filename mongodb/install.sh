@@ -50,7 +50,7 @@ use admin;
 db.createUser({
     user: '$MONGO_USER',
     pwd: '$MONGO_PASSWORD',
-    roles: [ { role: 'clusterAdmin', 'userAdminAnyDatabase', db: 'admin' } ]
+    roles: [ 'clusterAdmin', 'userAdminAnyDatabase' ]
 });
 EOF
 
