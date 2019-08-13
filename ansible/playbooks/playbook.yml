@@ -1,0 +1,14 @@
+---
+# Instala pacote nas maquinas baseadas em debian
+- name: garantir pacotes basicos do sistema
+  hosts: devops docker
+  
+  tasks:
+    - name: Instalando o pacote {{ item }}
+      apt: name={{ item }} update_cache=yes state=present
+      with_items:
+        - vim
+        - nano
+        - sl
+        - ccze
+        - tree

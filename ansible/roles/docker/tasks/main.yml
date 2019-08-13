@@ -1,0 +1,37 @@
+---
+# tasks file for docker
+- name: Instalacao das dependencias do Docker
+  apt: name={{ item }} update_cache=yes state=present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: Incluir o repositorio do docker
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Inclusao da chave do repositorio do docker
+  apt_key: url="https://download.docker.com/linux/ubuntu/gpg" state=present
+
+- name: Instalar o Docker
+  apt: name=docker-ce update_cache=yes state=present
+
+- command: mkdir -p /root/.docker
+
+- copy:
+    src: config.json
+    dest: /root/.docker/config.json
+
+- copy:
+    src: http-proxy.conf
+    dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+
+- copy:
+    src: https-proxy.conf
+    dest: /etc/systemd/system/docker.service.d/https-proxy.conf
+
+- command: systemctl daemon-reload
+- command: systemctl restart docker
