@@ -10,17 +10,14 @@
 
 - name: Baixar o pacote com o repositorio get_url
   get_url:
-    url: "http://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh"
+    url: http://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
     dest: /tmp/script.deb.sh
 
 - name: Instalacao do repositorio do Gitlab
-  shell: chmod +x /tmp/script.deb.sh && /tmp/script.deb.sh
+  command: bash /tmp/script.deb.sh
 
 - name: Instalacao do Gitlab
   apt:
     name: gitlab-ce
     update_cache: yes
     state: present
-
-- name: Configurando Gitlab para primeiro uso
-  command: gitlab-ce reconfigure
