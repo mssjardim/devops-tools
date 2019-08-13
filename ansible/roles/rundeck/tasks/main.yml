@@ -1,0 +1,8 @@
+---
+# tasks file for rundeck
+- name: Garantir o java e vim
+  command: dnf install java vim -y
+
+- name: Instalacao do rundeck
+  command: rpm -Uvh https://download.rundeck.org/rpm/rundeck-3.0.24.20190719-1.201907192053.noarch.rpm https://download.rundeck.org/rpm/rundeck-config-3.0.24.20190719-1.201907192053.noarch.rpm
+
